@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "livesim"
+version = "1.0.0"
+description = "Live data simulator for data analysts, engineers and scientists: realistic streams with REST, OData, SSE, WebSocket, TCP, SQL, file and Kafka integrations."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["fastapi>=0.110", "uvicorn[standard]>=0.29"]
+
+[project.optional-dependencies]
+sql = ["sqlalchemy>=2.0", "psycopg[binary]>=3.1"]
+parquet = ["pyarrow>=14"]
+kafka = ["confluent-kafka>=2.3"]
+dev = ["pytest>=8", "httpx>=0.27"]
+
+[project.scripts]
+livesim = "livesim.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["livesim*"]
+
+[tool.setuptools.package-data]
+livesim = ["static/*"]
+
+[tool.ruff]
+line-length = 130
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

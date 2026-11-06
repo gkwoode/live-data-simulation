@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LiveSim - live simulated data for analysts, engineers and scientists, with REST, OData, streaming, SQL and Kafka integrations.">
+  <title>LiveSim</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script>
+    try { const t = localStorage.getItem("livesim.theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#/streams" aria-label="LiveSim home">
+      <img src="/static/favicon.svg" alt="" width="24" height="24">
+      <span>LiveSim</span>
+    </a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#/streams" data-route="streams">Streams</a>
+      <a href="#/explore" data-route="explore">Explorer</a>
+      <a href="#/connect" data-route="connect">Connect</a>
+      <a href="#/sql" data-route="sql">SQL Lab</a>
+      <a href="#/sinks" data-route="sinks">Sinks</a>
+    </nav>
+    <div class="topbar-right">
+      <span class="rate-badge hide-sm" id="global-rate" aria-live="off"></span>
+      <button class="btn btn-quiet hide-sm" id="btn-start-all" type="button" title="Start every stream"></button>
+      <button class="btn btn-quiet hide-sm" id="btn-stop-all" type="button" title="Pause every stream"></button>
+      <a class="btn btn-quiet" href="/docs" target="_blank" rel="noopener">API docs</a>
+      <button class="btn btn-icon btn-quiet" id="theme-toggle" type="button" aria-label="Switch between light and dark theme"></button>
+    </div>
+  </header>
+  <main id="view" tabindex="-1"></main>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

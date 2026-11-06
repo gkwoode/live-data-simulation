@@ -1,0 +1,3 @@
+# Core: everything except the optional SQL / Parquet / Kafka sinks.
+fastapi>=0.110
+uvicorn[standard]>=0.29

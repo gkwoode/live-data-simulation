@@ -1,0 +1,5 @@
+# Optional sinks. Install what you need:  pip install -r requirements-optional.txt
+sqlalchemy>=2.0          # SQL database sink (any SQLAlchemy URL)
+psycopg[binary]>=3.1     # ...PostgreSQL driver (others: pyodbc for SQL Server, pymysql for MySQL, snowflake-sqlalchemy)
+pyarrow>=14              # Parquet files in the landing zone
+confluent-kafka>=2.3     # Kafka / Redpanda / Event Hubs / Confluent Cloud sink

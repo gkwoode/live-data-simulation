@@ -1,0 +1,39 @@
+# LiveSim + PostgreSQL. Every stream and dim_* table is written to Postgres, ready for
+# Power BI / Tableau DirectQuery or live connections, dbt and SQL clients.
+#   docker compose up --build
+# Add Kafka with:  docker compose -f docker-compose.yml -f docker-compose.kafka.yml up --build
+# Ports are bound to 127.0.0.1 only; change "127.0.0.1:5432:5432" to "5433:5432" if 5432 is taken.
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: livesim
+      POSTGRES_PASSWORD: livesim
+      POSTGRES_DB: livesim
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U livesim -d livesim"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  livesim:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      LIVESIM_SQL_URL: postgresql+psycopg://livesim:livesim@postgres:5432/livesim
+      LIVESIM_ALLOWED_HOSTS: livesim
+    ports:
+      - "127.0.0.1:8000:8000"
+      - "127.0.0.1:9999:9999"
+    volumes:
+      - livesim-data:/data
+
+volumes:
+  pgdata:
+  livesim-data:
